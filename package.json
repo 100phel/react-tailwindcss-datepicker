@@ -1,5 +1,5 @@
 {
-    "name": "sesolaga/react-tailwindcss-datepicker",
+    "name": "@sesolaga/react-tailwindcss-datepicker",
     "version": "1.5.1",
     "description": "A modern React Datepicker using Tailwind CSS 3",
     "main": "dist/index.cjs.js",
