@@ -44,7 +44,7 @@ const DEFAULT_SHORTCUTS: {
                 start: formatDate(dayjs().subtract(365, "d")),
                 end: formatDate(dayjs())
             }
-        },
+        }
     ],
     currentMonth: {
         text: "This month",
