@@ -36,7 +36,15 @@ const DEFAULT_SHORTCUTS: {
                 start: formatDate(dayjs().subtract(30, "d")),
                 end: formatDate(dayjs())
             }
-        }
+        },
+        {
+            daysNumber: 365,
+            text: "Last 365 days",
+            period: {
+                start: formatDate(dayjs().subtract(365, "d")),
+                end: formatDate(dayjs())
+            }
+        },
     ],
     currentMonth: {
         text: "This month",
