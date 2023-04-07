@@ -35,7 +35,8 @@ const Input: React.FC<Props> = (e: Props) => {
         displayFormat,
         inputId,
         inputName,
-        classNames
+        classNames,
+        popoverDirection
     } = useContext(DatepickerContext);
 
     // UseRefs
@@ -156,13 +157,20 @@ const Input: React.FC<Props> = (e: Props) => {
         const arrow = arrowContainer?.current;
 
         function showCalendarContainer() {
-            if (arrow && div && div.classList.contains("hidden")) {
-                div.classList.remove("hidden");
-                div.classList.add("block");
+            function setContainerPosition(
+                direction: string | undefined,
+                div: HTMLDivElement,
+                arrow: HTMLDivElement
+            ) {
+                if (direction === "down") {
+                    return;
+                }
+
                 // window.innerWidth === 767
                 if (
-                    window.innerWidth > 767 &&
-                    window.screen.height - 100 < div.getBoundingClientRect().bottom
+                    direction === "up" ||
+                    (window.innerWidth > 767 &&
+                        window.screen.height - 100 < div.getBoundingClientRect().bottom)
                 ) {
                     div.classList.add("bottom-full");
                     div.classList.add("mb-2.5");
@@ -173,6 +181,14 @@ const Input: React.FC<Props> = (e: Props) => {
                     arrow.classList.remove("border-l");
                     arrow.classList.remove("border-t");
                 }
+            }
+
+            if (arrow && div && div.classList.contains("hidden")) {
+                div.classList.remove("hidden");
+                div.classList.add("block");
+
+                setContainerPosition(popoverDirection, div, arrow);
+
                 setTimeout(() => {
                     div.classList.remove("translate-y-4");
                     div.classList.remove("opacity-0");
@@ -191,7 +207,7 @@ const Input: React.FC<Props> = (e: Props) => {
                 input.removeEventListener("focus", showCalendarContainer);
             }
         };
-    }, [calendarContainer, arrowContainer]);
+    }, [calendarContainer, arrowContainer, popoverDirection]);
 
     const renderToggleIcon = useCallback(
         (isEmpty: boolean) => {
